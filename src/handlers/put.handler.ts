@@ -4,7 +4,7 @@ import { validate as isUuid } from 'uuid';
 
 import { sendError, sendRes } from '../services/response.service';
 import { updateUser} from '../services/user.service';
-import {getRequestBody, validateBody} from "../services/request.service";
+import { getRequestBody, validateBody } from '../services/request.service';
 
 export const handlePutRequest = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
 
@@ -26,8 +26,8 @@ export const handlePutRequest = async (req: IncomingMessage, res: ServerResponse
                 }
                 const user: User | undefined = updateUser(id, body.username, body.age, body.hobbies);
                 return user
-                    ? sendRes(res, 201, {user})
-                    : sendError(res, 400, 'User not found!');
+                    ? sendRes(res, 200, user)
+                    : sendError(res, 404, 'User not found!');
             }
             return sendError(res, 400, 'Invalid ID format!');
         }

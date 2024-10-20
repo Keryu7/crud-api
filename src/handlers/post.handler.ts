@@ -21,7 +21,7 @@ export const handlePostRequest = async (req: IncomingMessage, res: ServerRespons
             }
             try {
                 const user: User = addUser(body.username, body.age, body.hobbies);
-                return sendRes(res, 201, {user});
+                return sendRes(res, 201, user);
             } catch (e: any) {
                 return sendError(res, e?.name, e?.message);
             }

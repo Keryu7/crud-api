@@ -1,5 +1,4 @@
 import {IncomingMessage, ServerResponse} from 'http';
-import { User } from '../models/user.model';
 import { validate as isUuid } from 'uuid';
 
 import { sendError, sendRes } from '../services/response.service';
