@@ -19,3 +19,12 @@ export const addUser = (username: string, age: number, hobbies: string[]): User 
     users.push(newUser);
     return newUser;
 };
+
+export const updateUser = (userId: string, username: string, age: number, hobbies: string[]): User | undefined => {
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex === -1) return undefined;
+
+    const updatedUser = { ...users[userIndex], username, age, hobbies };
+    users[userIndex] = updatedUser;
+    return updatedUser;
+};

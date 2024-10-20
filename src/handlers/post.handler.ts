@@ -2,22 +2,9 @@ import {IncomingMessage, ServerResponse} from 'http';
 import { User } from '../models/user.model';
 import { addUser } from '../services/user.service';
 import { sendError, sendRes } from '../services/response.service';
-import { getRequestBody } from '../services/request.service';
+import { getRequestBody, validateBody } from '../services/request.service';
 
-const validateBody = (body: User): {isValid: boolean; message?: string} => {
-    const { username, age, hobbies } = body;
 
-    if (typeof username !== 'string' || username.trim().length === 0) {
-        return { isValid: false, message: 'Invalid or missing "username"' };
-    }
-    if (typeof age !== 'number' || age < 0) {
-        return { isValid: false, message: 'Invalid or missing "age"' };
-    }
-    if (!Array.isArray(hobbies) || !hobbies.every(hobby => typeof hobby === 'string')) {
-        return { isValid: false, message: 'Invalid or missing "hobbies"' };
-    }
-    return { isValid: true };
-}
 
 export const handlePostRequest = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     const [_, endpoint] = req.url?.split('/') || [];

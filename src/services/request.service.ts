@@ -15,3 +15,18 @@ export const getRequestBody = async (req: IncomingMessage): Promise<User> => {
         });
     });
 }
+
+export const validateBody = (body: User): {isValid: boolean; message?: string} => {
+    const { username, age, hobbies } = body;
+
+    if (typeof username !== 'string' || username.trim().length === 0) {
+        return { isValid: false, message: 'Invalid or missing "username"' };
+    }
+    if (typeof age !== 'number' || age < 0) {
+        return { isValid: false, message: 'Invalid or missing "age"' };
+    }
+    if (!Array.isArray(hobbies) || !hobbies.every(hobby => typeof hobby === 'string')) {
+        return { isValid: false, message: 'Invalid or missing "hobbies"' };
+    }
+    return { isValid: true };
+}

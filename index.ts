@@ -2,6 +2,7 @@ import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { handleGetRequest } from './src/handlers/get.handler';
 import * as dotenv from 'dotenv';
 import { handlePostRequest } from './src/handlers/post.handler';
+import { handlePutRequest } from './src/handlers/put.handler';
 
 dotenv.config();
 
@@ -29,16 +30,16 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
         case 'POST': {
             return handlePostRequest(req, res);
         }
-/*        case 'PUT': {
+        case 'PUT': {
             return handlePutRequest(req, res);
         }
-        case 'DELETE': {
-            return handleDeleteRequest(req, res);
-        }
+        /*        case 'DELETE': {
+                    return handleDeleteRequest(req, res);
+              }
 
-        default: {
-            return sendNotFound(res);
-        }*/
+        /*        default: {
+                    return sendNotFound(res);
+                }*/
     }
 });
 
