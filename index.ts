@@ -1,9 +1,10 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { handleGetRequest } from './src/handlers/get.handler';
 import * as dotenv from 'dotenv';
+import { handleGetRequest } from './src/handlers/get.handler';
 import { handlePostRequest } from './src/handlers/post.handler';
 import { handlePutRequest } from './src/handlers/put.handler';
 import { handleDeleteRequest } from './src/handlers/delete.handler';
+import { sendError } from './src/services/response.service';
 
 dotenv.config();
 
@@ -15,32 +16,23 @@ const sendResponse = (res: ServerResponse, statusCode: number, message: string |
 };
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
-/*    const [_, resource, userId] = req.url?.split('/') || [];
-
-    console.log('VALUE', )
-
-    if (resource !== 'api' || userId !== 'users') {
-        sendResponse(res, 404, { message: 'Endpoint not found' });
-        return;
-    }*/
-    console.log('VALUE', req.method)
-    switch (req.method) {
-        case 'GET': {
-            return handleGetRequest(req, res);
+    try {
+        switch (req.method) {
+            case 'GET': {
+                return handleGetRequest(req, res);
+            }
+            case 'POST': {
+                return handlePostRequest(req, res);
+            }
+            case 'PUT': {
+                return handlePutRequest(req, res);
+            }
+            case 'DELETE': {
+                return handleDeleteRequest(req, res);
+            }
         }
-        case 'POST': {
-            return handlePostRequest(req, res);
-        }
-        case 'PUT': {
-            return handlePutRequest(req, res);
-        }
-        case 'DELETE': {
-                    return handleDeleteRequest(req, res);
-              }
-
-        /*        default: {
-                    return sendNotFound(res);
-                }*/
+    } catch (err) {
+        sendError(res, 500, 'Internal Server Error');
     }
 });
 
