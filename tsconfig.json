@@ -9,7 +9,9 @@
     "outDir": "./dist",
     "experimentalDecorators": false,
     "strict": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts"
