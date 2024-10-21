@@ -7,7 +7,7 @@
     "build": "tsc && webpack --mode production",
     "start:prod": "npm run build && node dist/main.js",
     "lint": "eslint 'src/**/*.ts'",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "keywords": [],
   "author": "",
